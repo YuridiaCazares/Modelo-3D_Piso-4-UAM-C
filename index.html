@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">  
-	<style>
-		model-viewer {
-		width: 100%; 
-		height: 100%;
-		position: absolute; /* Posiciona el model-viewer para ocupar toda la página */
-		top: 0;
-		left: 0;
-	}
-	</style>
-	   
-	<title>Modelo 3D_Piso 4 UAM-C</title>
-	</head>
-<body>
-    <!-- Insercción del modelo 3D (Codígo extraido del editor de https://modelviewer.dev/) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo 3D - Piso 4 UAM-C</title>
 
-    <model-viewer src="assets/Piso4.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1">
-        <div class="progress-bar hide" slot="progress-bar">
-            <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button" id="ar-button">
-            <font style="vertical-align: inherit;">
-				<font style="vertical-align: inherit;">
-					Ver en tu espacio
-				</font>
-			</font>
-        </button>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        model-viewer {
+            width: 100%;
+            height: 80vh;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Explora el Piso 4 de la UAM-C</h2>
+
+    <model-viewer 
+        id="modelo3D"
+        src="assets/Piso4.glb" 
+        ar 
+        ar-modes="webxr scene-viewer quick-look" 
+        camera-controls 
+        tone-mapping="neutral"
+        poster="poster.webp" 
+        shadow-intensity="1">
     </model-viewer>
 
-   <!-- Importación del componente -->
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script>
+        function irA(posicion, angulo) {
+            let modelo = document.getElementById('modelo3D');
+            modelo.setAttribute("camera-target", posicion); 
+            modelo.setAttribute("camera-orbit", angulo);    
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const view = params.get("view");
+
+      const vistas = {
+	    imagenSonido: { pos: "-22.1m 5.3m -20.3m", ang: "-4.67deg 1.70deg 0.5m" },
+	    ServicioCom: { pos: "-22.4m 5.3m -6.15m", ang: "-4.67deg 1.7deg 0.5m" },
+	    Caja: { pos: "-10.9m 5.3m -30.5m", ang: "-4.67deg 1.7deg 0.5m" },
+	    SalaExpo: { pos: "5.87m 5.1m 15.48m", ang: "-1.7deg 23.7deg 0.5m" },
+	    SalaConfe: { pos: "24.6m 5.1m 8.43m", ang: "-1.7deg 22deg 0.5m" },
+	    Fotocopias: { pos: "-2.8m 2.82m 1.74m", ang: "-4.24deg 27.9deg 0.5m" },
+	    PracProf: { pos: "24.2m 5.3m 3.43m", ang: "-4.2deg 28deg 0.5m" },
+	    SistemasEsc: { pos: "25m 5.3m -25.2m", ang: "-4.24deg 28deg 0.5m" },
+	    Movilidad: { pos: "25m 5.3m -14.7m", ang: "-4.2deg 28deg 0.5m" },
+	    ServicioSocial: { pos: "24.8m 5.3m -8.87m", ang: "-4.2deg 28deg 0.5m" },
+	    UPAV: { pos: "24.5m 5.3m -2.56m", ang: "-2.1deg 13.1deg 0.5m" },
+	    CEA: { pos: "24.7m 5.3m 19.6m", ang: "-2.1deg 13.1deg 0.5m" },
+	    RecursosH: { pos: "6.24m 5.39m -31.1m", ang: "-2.12deg 13deg 0.5m" },
+	    ServicioMed: { pos: "24.6m 5.3m 27m", ang: "-4.2deg 1.2deg 0.5m" },
+	    SerSM: { pos: "6.87m 5.3m 9.3m", ang: "-3.4deg 29.2deg 0.5m" },
+	    Libreria: { pos: "-3.49m 5.3m 10.1m", ang: "-3.39deg 29.2deg 0.5m" },
+	    Lenguas: { pos: "24.7m 5.3m 12.8m", ang: "-4.2deg 21.2deg 0.5m" },
+	    ProteccionC: { pos: "-22.2m 5.3m 13.2m", ang: "-4.6deg 20.7deg 0.5m" }
+	};
+
+        if (view && vistas[view]) {
+            irA(vistas[view].pos, vistas[view].ang);
+        }
+    </script>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
 </body>
 </html>
